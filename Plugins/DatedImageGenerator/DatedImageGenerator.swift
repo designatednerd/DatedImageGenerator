@@ -32,7 +32,7 @@ struct DatedImageGenerator: BuildToolPlugin {
         return [
             .buildCommand(
                 displayName: "Generate Dated Images",
-                executable: try context.tool(named: "DatedImageGeneratorLib").path,
+                executable: try context.tool(named: "DatedImageGeneratorExecutable").path,
                 arguments: [try invocation.encodedString()],
                 outputFiles: [outputPath]
             )
