@@ -8,21 +8,7 @@ public struct DatedImageGeneratorLib {
         case notImplemented
     }
     
-    public static func generateCode(for invocation: PluginInvocation) throws {
-        let content: String = try fileContent(for: invocation.catalogPaths)
-        
-        let exists = FileManager.default.fileExists(atPath: invocation.outputPath)
-        
-        if !exists {
-            let parentPath = (invocation.outputPath as NSString).deletingLastPathComponent
-            print("Creating folder at parent path \(parentPath)")
-            try? FileManager.default.createDirectory(at: URL(string: parentPath)!, withIntermediateDirectories: true)
-        }
-        
-        try content.write(toFile: invocation.outputPath,
-                          atomically: true,
-                          encoding: .utf8)
-    }
+
     
     static func readMetadata(fromImageSet imageSet: URL) throws -> NSDictionary? {
         let contents = try self.contentsOfFolderAtPath((imageSet as NSURL).path!)
@@ -73,7 +59,6 @@ public struct AssetCatalogImages {
 }
 """
         content.append(footer)
-        print("CONTENT:\n\n\(content)")
         return content
     }
 

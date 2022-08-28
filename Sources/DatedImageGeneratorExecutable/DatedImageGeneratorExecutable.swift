@@ -20,10 +20,18 @@ struct DatedImageGeneratorExecutable {
             return
         }
         
-        do {
-            try DatedImageGeneratorLib.generateCode(for: invocation)
-        } catch {
-            XcodeIssue.report(.error("Generation failed: \(error.localizedDescription)"))
+        let content: String = try DatedImageGeneratorLib.fileContent(for: invocation.catalogPaths)
+        
+        let exists = FileManager.default.fileExists(atPath: invocation.outputPath)
+        
+        if !exists {
+            let parentPath = (invocation.outputPath as NSString).deletingLastPathComponent
+            print("Creating folder at parent path \(parentPath)")
+            try? FileManager.default.createDirectory(at: URL(string: parentPath)!, withIntermediateDirectories: true)
         }
+        
+        try content.write(toFile: invocation.outputPath,
+                          atomically: true,
+                          encoding: .utf8)
     }
 }
