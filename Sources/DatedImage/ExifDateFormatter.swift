@@ -11,7 +11,7 @@ public class ExifDateFormatter {
     public static let shared: DateFormatter = {
         var formatter = DateFormatter()
         // 2017:09:20 16:57:11
-        formatter.dateFormat = "yyyy:MM:dd hh:mm:ss"
+        formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
         return formatter
     }()
     
