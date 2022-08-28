@@ -11,6 +11,13 @@ public struct DatedImageGeneratorLib {
     public static func generateCode(for invocation: PluginInvocation) throws {
         let content: String = try fileContent(for: invocation.catalogPaths)
         
+        let exists = FileManager.default.fileExists(atPath: invocation.outputPath)
+        
+        if !exists {
+            let parentPath = (invocation.outputPath as NSString).deletingLastPathComponent
+            try? FileManager.default.createDirectory(at: URL(string: parentPath)!, withIntermediateDirectories: true)
+        }
+        
         try content.write(toFile: invocation.outputPath,
                           atomically: true,
                           encoding: .utf8)
