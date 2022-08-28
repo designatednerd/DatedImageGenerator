@@ -15,6 +15,7 @@ public struct DatedImageGeneratorLib {
         
         if !exists {
             let parentPath = (invocation.outputPath as NSString).deletingLastPathComponent
+            print("Creating folder at parent path \(parentPath)")
             try? FileManager.default.createDirectory(at: URL(string: parentPath)!, withIntermediateDirectories: true)
         }
         
@@ -72,7 +73,7 @@ public struct AssetCatalogImages {
 }
 """
         content.append(footer)
-        
+        print("CONTENT:\n\n\(content)")
         return content
     }
 

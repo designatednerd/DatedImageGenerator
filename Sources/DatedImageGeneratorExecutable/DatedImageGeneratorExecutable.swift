@@ -20,6 +20,10 @@ struct DatedImageGeneratorExecutable {
             return
         }
         
-        try DatedImageGeneratorLib.generateCode(for: invocation)
+        do {
+            try DatedImageGeneratorLib.generateCode(for: invocation)
+        } catch {
+            XcodeIssue.report(.error("Generation failed: \(error.localizedDescription)"))
+        }
     }
 }
