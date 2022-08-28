@@ -27,7 +27,7 @@ struct DatedImageGenerator: BuildToolPlugin {
         let outputPath = context.pluginWorkDirectory
             .appending(["DatedImages.swift"])
         
-        let invocation = PluginInvocation(catalogPaths: assetCatalogPaths)
+        let invocation = PluginInvocation(catalogPaths: assetCatalogPaths, outputPath: outputPath.string)
         
         return [
             .buildCommand(
@@ -40,9 +40,10 @@ struct DatedImageGenerator: BuildToolPlugin {
     }
 }
 
-// This should be shared between the plugin and its
+// This should be identical between the plugin and its lib
 struct PluginInvocation: Codable {
     let catalogPaths: [String]
+    let outputPath: String
 
     func encodedString() throws -> String {
         let data = try JSONEncoder().encode(self)

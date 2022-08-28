@@ -11,11 +11,15 @@ import SwiftUI
 // The type we're using to generate code
 public struct DatedImage {
     public let imageName: String
-    public let dateTaken: Date
+    public let dateTakenString: String
     
     public init(imageName: String,
-                dateTaken: Date) {
+                dateTakenString: String) {
         self.imageName = imageName
-        self.dateTaken = dateTaken
-    }    
+        self.dateTakenString = dateTakenString
+    }
+    
+    public var dateTaken: Date {
+        ExifDateFormatter.date(from: self.dateTakenString)
+    }
 }
