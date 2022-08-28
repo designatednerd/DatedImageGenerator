@@ -91,8 +91,8 @@ public struct AssetCatalogImages {
 
 }
 
-extension DatedImage {
-  public var image: Image {
+public extension DatedImage {
+  var image: Image {
     Image(self.imageName, bundle: .module)
   }
 }
