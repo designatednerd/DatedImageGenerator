@@ -44,7 +44,7 @@ let package = Package(
             name: "DatedImageGenerator",
             capability: .buildTool(),
             dependencies: [
-                .target(name: "DatedImage")
+                .target(name: "DatedImageGeneratorExecutable")
             ]
         ),
         // Tests
