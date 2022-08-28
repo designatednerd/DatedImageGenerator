@@ -14,8 +14,8 @@ let package = Package(
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "DatedImageGeneratorLib",
-            targets: ["DatedImageGeneratorLib"]),
+            name: "DatedImage",
+            targets: ["DatedImage"]),
         .plugin(
             name: "DatedImageGenerator",
             targets: ["DatedImageGenerator"]),
@@ -30,28 +30,26 @@ let package = Package(
         .executableTarget(
             name: "DatedImageGeneratorExecutable",
             dependencies:  [
-                "DatedImageGeneratorLib",
+                "DatedImage",
                 .product(name: "XcodeIssueReporting", package: "XcodeIssueReporting"),
 
             ],
             path: "Sources/DatedImageGeneratorExecutable"
         ),
-        .target(name: "DatedImageGeneratorLib",
-                dependencies:  [
-                    .product(name: "XcodeIssueReporting", package: "XcodeIssueReporting"),
-                ],
-                path: "Sources/DatedImageGeneratorLib"),
+        .target(name: "DatedImage",
+                dependencies:  [],
+                path: "Sources/DatedImage"),
         // Interface
         .plugin(
             name: "DatedImageGenerator",
             capability: .buildTool(),
             dependencies: [
-                .target(name: "DatedImageGeneratorLib")
+                .target(name: "DatedImage")
             ]
         ),
         // Tests
         .testTarget(
             name: "DatedImageGeneratorTests",
-            dependencies: ["DatedImageGeneratorLib"]),
+            dependencies: ["DatedImageGeneratorExecutable"]),
     ]
 )

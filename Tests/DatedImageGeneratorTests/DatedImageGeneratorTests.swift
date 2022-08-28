@@ -1,5 +1,5 @@
 import XCTest
-@testable import DatedImageGeneratorLib
+@testable import DatedImageGeneratorExecutable
 
 final class DatedImageGeneratorTests: XCTestCase {
     
@@ -11,7 +11,7 @@ final class DatedImageGeneratorTests: XCTestCase {
     }
     
     func testGettingNamesOfImageSets() throws {
-        let namesAndDates = try DatedImageGeneratorLib.imageNamesAndDatesForCatalog(at: self.pathToTestAssetCatalog)
+        let namesAndDates = try DatedImageGeneratorExecutable.imageNamesAndDatesForCatalog(at: self.pathToTestAssetCatalog)
         let sorted = namesAndDates.sorted { t1, t2 in
             t1.0 < t2.0
         }
@@ -23,7 +23,7 @@ final class DatedImageGeneratorTests: XCTestCase {
     }
     
     func testContentForCatalog() throws {
-        let content = try DatedImageGeneratorLib.fileContent(for: [self.pathToTestAssetCatalog])
+        let content = try DatedImageGeneratorExecutable.fileContent(for: [self.pathToTestAssetCatalog])
         
         XCTAssertEqual(content,
 """
