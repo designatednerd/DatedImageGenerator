@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 // The type we're using to generate code
-public struct DatedImage {
+public struct DatedImage: Hashable {
     public let imageName: String
     public let dateTakenString: String
     
