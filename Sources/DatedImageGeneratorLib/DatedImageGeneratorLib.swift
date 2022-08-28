@@ -1,9 +1,6 @@
 import Foundation
-import XcodeIssueReporting
 import ImageIO
 
-
-@main
 public struct DatedImageGeneratorLib {
     
     public enum Error: LocalizedError {
@@ -11,14 +8,7 @@ public struct DatedImageGeneratorLib {
         case notImplemented
     }
     
-    static func main() throws {
-        let invocation = try JSONDecoder().decode(PluginInvocation.self, from: Data(ProcessInfo.processInfo.arguments[1].utf8))
-        
-        guard !invocation.catalogPaths.isEmpty else {
-            XcodeIssue.report(XcodeIssue.warning("No asset catalogs were provided, code will not be generated"))
-            return
-        }
-        
+    public static func generateCode(for invocation: PluginInvocation) throws {
         let content: String = try fileContent(for: invocation.catalogPaths)
         
         try content.write(toFile: invocation.outputPath,
@@ -111,12 +101,14 @@ public struct AssetCatalogImages {
     }
 }
 
-struct PluginInvocation: Codable {
-    let catalogPaths: [String]
-    let outputPath: String
+// This should be identical between the plugin and its lib
+public struct PluginInvocation: Codable {
+    public let catalogPaths: [String]
+    public let outputPath: String
 
-    func encodedString() throws -> String {
+    public func encodedString() throws -> String {
         let data = try JSONEncoder().encode(self)
         return String(decoding: data, as: UTF8.self)
     }
 }
+
