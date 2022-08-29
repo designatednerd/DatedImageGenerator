@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  DatedImageGenerator.swift
+//  DatedImageGenerator
 //
 //  Created by Ellen Shapiro on 8/28/22.
 //
