@@ -51,6 +51,8 @@ struct PluginInvocation: Codable {
     }
 }
 
+// Wrap so projects not using Xcode don't barf
+#if canImport(XcodeProjectPlugin)
 import XcodeProjectPlugin
 
 struct DatedImageGeneratorXcode: XcodeBuildToolPlugin {
@@ -78,3 +80,4 @@ struct DatedImageGeneratorXcode: XcodeBuildToolPlugin {
         ]
     }
 }
+#endif
