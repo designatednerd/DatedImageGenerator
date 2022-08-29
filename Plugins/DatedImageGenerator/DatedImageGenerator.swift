@@ -50,3 +50,31 @@ struct PluginInvocation: Codable {
         return String(decoding: data, as: UTF8.self)
     }
 }
+
+import XcodeProjectPlugin
+
+struct DatedImageGeneratorXcode: XcodeBuildToolPlugin {
+    func createBuildCommands(context: XcodePluginContext, target: XcodeTarget) throws -> [Command] {
+        guard let target = target as? SourceModuleTarget else {
+            throw ImageGenError.notASourceModule
+        }
+        
+        let assetCatalogPaths = target.sourceFiles(withSuffix: "xcassets").compactMap { assetCatalog in
+            return assetCatalog.path.string
+        }
+
+        let outputPath = context.pluginWorkDirectory
+            .appending(["DatedImages.swift"])
+        
+        let invocation = PluginInvocation(catalogPaths: assetCatalogPaths, outputPath: outputPath.string)
+        
+        return [
+            .buildCommand(
+                displayName: "Generate Dated Images",
+                executable: try context.tool(named: "DatedImageGeneratorExecutable").path,
+                arguments: [try invocation.encodedString()],
+                outputFiles: [outputPath]
+            )
+        ]
+    }
+}
