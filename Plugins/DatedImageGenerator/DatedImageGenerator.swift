@@ -55,7 +55,7 @@ struct PluginInvocation: Codable {
 #if canImport(XcodeProjectPlugin)
 import XcodeProjectPlugin
 
-struct DatedImageGeneratorXcode: XcodeBuildToolPlugin {
+extension DatedImageGenerator: XcodeBuildToolPlugin {
     func createBuildCommands(context: XcodeProjectPlugin.XcodePluginContext, target: XcodeProjectPlugin.XcodeTarget) throws -> [PackagePlugin.Command] {
         guard let target = target as? SourceModuleTarget else {
             throw ImageGenError.notASourceModule
