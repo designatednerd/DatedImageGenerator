@@ -19,6 +19,9 @@ let package = Package(
         .plugin(
             name: "DatedImageGenerator",
             targets: ["DatedImageGenerator"]),
+        .plugin(
+            name: "DatedImageGeneratorCommand",
+            targets: ["DatedImageGeneratorCommand"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
