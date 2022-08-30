@@ -18,10 +18,7 @@ let package = Package(
             targets: ["DatedImage"]),
         .plugin(
             name: "DatedImageGenerator",
-            targets: ["DatedImageGenerator"]),
-        .plugin(
-            name: "DatedImageGeneratorCommand",
-            targets: ["DatedImageGeneratorCommand"])
+            targets: ["DatedImageGenerator"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -45,18 +42,6 @@ let package = Package(
         .plugin(
             name: "DatedImageGenerator",
             capability: .buildTool(),
-            dependencies: [
-                .target(name: "DatedImageGeneratorExecutable")
-            ]
-        ),
-        .plugin(
-            name: "DatedImageGeneratorCommand",
-            capability: .command(
-                intent: .custom(verb: "GenerateCode", description: "Generates dated images on a one-time only basis"),
-                permissions: [
-                    .writeToPackageDirectory(reason: "This command generates code to be checked into version control")
-                ]
-            ),
             dependencies: [
                 .target(name: "DatedImageGeneratorExecutable")
             ]
