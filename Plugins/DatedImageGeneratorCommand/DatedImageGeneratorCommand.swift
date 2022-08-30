@@ -28,11 +28,7 @@ struct DatedImageGeneratorCommand: CommandPlugin {
                 continue
             }
             
-
-            let outputPath = context.pluginWorkDirectory
-                .appending(["DatedImages.swift"])
-            
-            let invocation = PluginInvocation(catalogPaths: assetCatalogPaths, outputPath: outputPath.string)
+            let invocation = PluginInvocation(catalogPaths: assetCatalogPaths, outputPath: "DatedImages.swift")
             let invocationString = try invocation.encodedString()
             
             let process = Process()
