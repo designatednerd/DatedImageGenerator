@@ -12,6 +12,7 @@ import PackagePlugin
 struct DatedImageGeneratorCommand: CommandPlugin {
     
     func performCommand(context: PluginContext, arguments: [String]) throws {
+        print("ARGUMENTS: \(arguments)")
         let tool = try context.tool(named: "DatedImageGeneratorExecutable")
         let toolUrl = URL(fileURLWithPath: tool.path.string)
 
