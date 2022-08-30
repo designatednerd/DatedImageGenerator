@@ -57,6 +57,7 @@ import XcodeProjectPlugin
 
 extension DatedImageGenerator: XcodeBuildToolPlugin {
     func createBuildCommands(context: XcodeProjectPlugin.XcodePluginContext, target: XcodeProjectPlugin.XcodeTarget) throws -> [PackagePlugin.Command] {
+        print("target: \(target)")
         guard let target = target as? SourceModuleTarget else {
             throw ImageGenError.notASourceModule
         }
