@@ -32,7 +32,6 @@ let package = Package(
             dependencies:  [
                 "DatedImage",
                 .product(name: "XcodeIssueReporting", package: "XcodeIssueReporting"),
-
             ],
             path: "Sources/DatedImageGeneratorExecutable"
         ),
@@ -43,6 +42,18 @@ let package = Package(
         .plugin(
             name: "DatedImageGenerator",
             capability: .buildTool(),
+            dependencies: [
+                .target(name: "DatedImageGeneratorExecutable")
+            ]
+        ),
+        .plugin(
+            name: "DatedImageGeneratorCommand",
+            capability: .command(
+                intent: .custom(verb: "GenerateCode", description: "Generates dated images on a one-time only basis"),
+                permissions: [
+                    .writeToPackageDirectory(reason: "This command generates code to be checked into version control")
+                ]
+            ),
             dependencies: [
                 .target(name: "DatedImageGeneratorExecutable")
             ]
