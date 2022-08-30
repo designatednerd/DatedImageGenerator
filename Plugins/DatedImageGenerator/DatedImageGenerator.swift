@@ -57,6 +57,8 @@ import XcodeProjectPlugin
 
 extension DatedImageGenerator: XcodeBuildToolPlugin {
     func createBuildCommands(context: XcodePluginContext, target: XcodeTarget) throws -> [PackagePlugin.Command] {
+        let kind = target.product?.kind
+        print("KIND: \(String(describing: kind))")
         let assetCatalogPaths = context.xcodeProject.filePaths
             .filter({ $0.string.hasSuffix("xcassets")})
             .map { $0.string }
