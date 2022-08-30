@@ -106,7 +106,7 @@ public struct \(catalogName) {
 }
 
 public extension DatedImage {
-  var image: Image {
+  var \(catalogName.lowercased())Image: Image {
     Image(self.imageName, bundle: .module)
   }
 }
@@ -120,7 +120,7 @@ public extension DatedImage {
 private class ClassForAccessingCurrentBundle {}
 
 public extension DatedImage {
-  var image: Image {
+  var \(catalogName.lowercased())Image: Image {
     Image(self.imageName, bundle: Bundle(for: ClassForAccessingCurrentBundle.self))
   }
 }

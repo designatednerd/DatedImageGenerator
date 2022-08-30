@@ -39,7 +39,7 @@ public struct Media {
 }
 
 public extension DatedImage {
-  var image: Image {
+  var mediaImage: Image {
     Image(self.imageName, bundle: .module)
   }
 }
