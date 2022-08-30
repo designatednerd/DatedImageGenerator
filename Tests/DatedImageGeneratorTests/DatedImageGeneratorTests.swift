@@ -32,7 +32,7 @@ final class DatedImageGeneratorTests: XCTestCase {
 import DatedImage
 import SwiftUI
 
-public struct AssetCatalogImages {
+public struct Media {
   public static let hank_case = DatedImage(imageName: "hank_case", dateTakenString: "2022:07:26 12:12:27")
 
   public static let klausje = DatedImage(imageName: "klausje", dateTakenString: "2017:09:20 16:57:11")
