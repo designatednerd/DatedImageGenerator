@@ -60,6 +60,8 @@ extension DatedImageGenerator: XcodeBuildToolPlugin {
         let assetCatalogPaths = context.xcodeProject.filePaths
             .filter({ $0.string.hasSuffix("xcassets")})
             .map { $0.string }
+        
+        print("Asset catalog paths: \(assetCatalogPaths)")
 
         let outputPath = context.pluginWorkDirectory
             .appending(["DatedImages.swift"])
