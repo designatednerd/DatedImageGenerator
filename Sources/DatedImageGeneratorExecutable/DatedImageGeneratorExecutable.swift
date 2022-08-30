@@ -91,9 +91,11 @@ public struct AssetCatalogImages {
 
 }
 
+private class ClassForAccessingCurrentBundle {}
+
 public extension DatedImage {
   var image: Image {
-    Image(self.imageName, bundle: .module)
+    Image(self.imageName, bundle: Bundle(for: ClassForAccessingCurrentBundle.self)
   }
 }
 """

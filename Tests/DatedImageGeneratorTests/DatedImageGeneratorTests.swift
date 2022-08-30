@@ -38,9 +38,11 @@ public struct AssetCatalogImages {
   public static let klausje = DatedImage(imageName: "klausje", dateTakenString: "2017:09:20 16:57:11")
 }
 
+private class ClassForAccessingCurrentBundle {}
+
 public extension DatedImage {
   var image: Image {
-    Image(self.imageName, bundle: .module)
+    Image(self.imageName, bundle: Bundle(for: ClassForAccessingCurrentBundle.self)
   }
 }
 """)
