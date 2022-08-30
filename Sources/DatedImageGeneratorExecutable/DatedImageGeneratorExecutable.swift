@@ -20,7 +20,7 @@ struct DatedImageGeneratorExecutable {
             return
         }
         
-        let content: String = try self.fileContent(for: invocation.catalogPaths)
+        let content: String = try self.fileContent(for: invocation.catalogPaths, isForSwiftModule: invocation.isForSwiftModule)
         
         let exists = FileManager.default.fileExists(atPath: invocation.outputPath)
         
@@ -56,7 +56,7 @@ struct DatedImageGeneratorExecutable {
         return nil
     }
     
-    static func fileContent(for catalogPaths: [String]) throws -> String {
+    static func fileContent(for catalogPaths: [String], isForSwiftModule: Bool) throws -> String {
         let allImageNamesAndDates = try catalogPaths.flatMap { try imageNamesAndDatesForCatalog(at: $0) }
         
         var content = String()
@@ -86,7 +86,21 @@ public struct AssetCatalogImages {
         
         content.append(images.joined(separator: "\n\n"))
         
-        let footer =
+        let footer: String
+        if isForSwiftModule {
+            footer =
+"""
+
+}
+
+public extension DatedImage {
+  var image: Image {
+    Image(self.imageName, bundle: .module)
+  }
+}
+"""
+        } else {
+            footer =
 """
 
 }
@@ -99,6 +113,8 @@ public extension DatedImage {
   }
 }
 """
+        }
+        
         content.append(footer)
         return content
     }
@@ -139,6 +155,7 @@ public extension DatedImage {
 public struct PluginInvocation: Codable {
     public let catalogPaths: [String]
     public let outputPath: String
+    public let isForSwiftModule: Bool
 
     public func encodedString() throws -> String {
         let data = try JSONEncoder().encode(self)

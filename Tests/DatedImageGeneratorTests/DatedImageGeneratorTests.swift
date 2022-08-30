@@ -23,7 +23,7 @@ final class DatedImageGeneratorTests: XCTestCase {
     }
     
     func testContentForCatalog() throws {
-        let content = try DatedImageGeneratorExecutable.fileContent(for: [self.pathToTestAssetCatalog])
+        let content = try DatedImageGeneratorExecutable.fileContent(for: [self.pathToTestAssetCatalog], isForSwiftModule: true)
         
         XCTAssertEqual(content,
 """
@@ -38,11 +38,9 @@ public struct AssetCatalogImages {
   public static let klausje = DatedImage(imageName: "klausje", dateTakenString: "2017:09:20 16:57:11")
 }
 
-private class ClassForAccessingCurrentBundle {}
-
 public extension DatedImage {
   var image: Image {
-    Image(self.imageName, bundle: Bundle(for: ClassForAccessingCurrentBundle.self))
+    Image(self.imageName, bundle: .module)
   }
 }
 """)

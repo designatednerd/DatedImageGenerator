@@ -27,7 +27,7 @@ struct DatedImageGenerator: BuildToolPlugin {
         let outputPath = context.pluginWorkDirectory
             .appending(["DatedImages.swift"])
         
-        let invocation = PluginInvocation(catalogPaths: assetCatalogPaths, outputPath: outputPath.string)
+        let invocation = PluginInvocation(catalogPaths: assetCatalogPaths, outputPath: outputPath.string, isForSwiftModule: true)
         
         return [
             .buildCommand(
@@ -44,6 +44,7 @@ struct DatedImageGenerator: BuildToolPlugin {
 struct PluginInvocation: Codable {
     let catalogPaths: [String]
     let outputPath: String
+    let isForSwiftModule: Bool
 
     func encodedString() throws -> String {
         let data = try JSONEncoder().encode(self)
@@ -57,18 +58,14 @@ import XcodeProjectPlugin
 
 extension DatedImageGenerator: XcodeBuildToolPlugin {
     func createBuildCommands(context: XcodePluginContext, target: XcodeTarget) throws -> [PackagePlugin.Command] {
-        let kind = target.product?.kind
-        print("KIND: \(String(describing: kind))")
         let assetCatalogPaths = context.xcodeProject.filePaths
             .filter({ $0.string.hasSuffix("xcassets")})
             .map { $0.string }
-        
-        print("Asset catalog paths: \(assetCatalogPaths)")
 
         let outputPath = context.pluginWorkDirectory
             .appending(["DatedImages.swift"])
         
-        let invocation = PluginInvocation(catalogPaths: assetCatalogPaths, outputPath: outputPath.string)
+        let invocation = PluginInvocation(catalogPaths: assetCatalogPaths, outputPath: outputPath.string, isForSwiftModule: false)
         
         return [
             .buildCommand(
