@@ -11,6 +11,7 @@ import PackagePlugin
 enum ImageGenError: LocalizedError  {
     case notASourceModule
     case noImagesToGenerate
+    case couldNotConvertInvocationDataToString
 }
 
 @main
